@@ -1,0 +1,16 @@
+$ tree --dirsfirst 
+.
+├── output
+│   └── digit_classifier.h5
+├── pyimagesearch
+│   ├── models
+│   │   ├── __init__.py
+│   │   └── Sudokunet.py
+│   ├── Sudoku
+│   │   ├── __init__.py
+│   │   └── puzzle.py
+│   └── __init__.py
+├── solve_sudoku_puzzle.py
+├── sudoku_puzzle.jpg
+└── train_digit_classifier.py
+
