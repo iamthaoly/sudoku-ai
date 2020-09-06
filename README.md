@@ -26,6 +26,6 @@ python solve.py
 python solve.py --image images/image_file_name.jpg
 ```
 ## Todo
-[ ] Save solved puzzle with custom name
-[ ] No puzzle bug fix
-[ ] Webcam support
+- [ ] Save solved puzzle with custom name
+- [ ] No puzzle bug fix
+- [ ] Webcam support
