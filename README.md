@@ -5,10 +5,10 @@ Sudoku solver using OpenCV, Tensorflow/Keras and a little bit magic.
 Insert meme.
 
 ## How to use?
-### First clone this repo
+### First clone this repo  
 git clone https://github.com/iamthaoly/sudoku-ai.git
 **Open the directory you had cloned in command line** 
-
+ 
 ### Install requirements
 pip install -r requirements.txt
 

@@ -1,5 +1,0 @@
-python3 solve_sudoku_puzzle.py --model output/model_weights.h5 \
-	--image puzzle.jpg --debug 1
-
-python3 solve_sudoku_puzzle.py --model output/CNN_Digits.h5 \
-	--image puzzle.jpg --debug 1
