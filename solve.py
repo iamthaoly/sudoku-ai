@@ -5,7 +5,6 @@ from source.Sudoku.x_algo import solve_sudoku_X
 from tensorflow.keras.preprocessing.image import img_to_array
 from tensorflow.keras.models import load_model
 from keras.models import model_from_json
-from sudoku import Sudoku
 import numpy as np
 import argparse
 import imutils
@@ -58,7 +57,7 @@ def main():
             # crop the cell and extract the digit from the cell
             cell = warped[startY:endY, startX:endX]
             try: 
-                digit = extract_digit(cell, debug=args["debug"] > 0)
+                digit = extract_digit(cell)
             except:
                 print("Unable to detect Sudoku puzzle in your image :(")
                 return
@@ -79,9 +78,6 @@ def main():
     
     # Construct 
     print("[INFO] OCR'd Sudoku board: ")
-    #board.tolist() => 2d list
-    puzzle = Sudoku(3, 3, board=board.tolist())
-    # puzzle.show()
 
     # Solve 
     print("[INFO] solving Sudoku puzzle...")
@@ -98,10 +94,9 @@ def main():
             textY = int((endY - startY) * -0.2)
             textX += startX
             textY += endY
-
             #draw result only if cell is empty when initialized
             if start_board[row_num][col_num] == 0:
-                cv2.putText(puzzleImage, str(digit), (textX, textY), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (16, 156, 27), 2)
+                cv2.putText(puzzleImage, str(digit), (textX, textY), cv2.FONT_HERSHEY_SIMPLEX, 0.9, (0, 165, 255), 2, cv2.LINE_AA)
             col_num += 1
         row_num += 1
         col_num = 0

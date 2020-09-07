@@ -67,7 +67,7 @@ def extract_digit(cell, debug=False):
     # connected borders that touch the border of the cell
     thresh = cv2.threshold(cell, 0, 255, cv2.THRESH_BINARY_INV | cv2.THRESH_OTSU)[1]
     thresh = clear_border(thresh)
-
+    
     if debug:
         cv2.imshow("Cell thresh", thresh)
         cv2.waitKey(0)
@@ -100,7 +100,3 @@ def extract_digit(cell, debug=False):
         cv2.waitKey(0)
     
     return digit
-# TEST
-# img = cv2.imread("/mnt/D/Code/py/sudoku_solver/puzzle.jpg")
-# output, _ = find_puzzle(img, True)
-# cv2.imwrite("output.png", output)
