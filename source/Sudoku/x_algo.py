@@ -41,6 +41,7 @@ def solve_sudoku_X(size, grid):
     row, col = size
     # calculate total squares in grid 
     N = row * col
+    # n = digits from 1 -> n
     X = ([("rc", rc) for rc in product(range(N), range(N))] + 
         [("rn", rn) for rn in product(range(N), range(1, N + 1))] +
         [("cn", cn) for cn in product(range(N), range(1, N + 1))] +
