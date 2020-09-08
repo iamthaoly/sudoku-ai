@@ -1,5 +1,5 @@
 # SUDOKU AI
-Sudoku solver using OpenCV, Tensorflow/Keras and algorithm X.
+Solve Sudoku FAST and directly from book/paper/app with Machine Learning, Computer Vision, and Algorithm X.
 
 ## Demo
 Want to impress your friends? You came to the right place ;)
