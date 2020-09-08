@@ -3,12 +3,11 @@ Sudoku solver using OpenCV, Tensorflow/Keras and algorithm X.
 
 ## Demo
 Want to impress your friends? You came to the right place ;)
-![Demo](image.jpg)
+![Demo](demo.png)
 
 ## How to use?
 ### First clone this repo
 ```
-
 git clone https://github.com/iamthaoly/sudoku-ai.git
 ```
 - **Open the directory you had cloned in command line** 

@@ -11,6 +11,8 @@ import imutils
 import cv2
 import os
 import sys
+import time
+
 
 def main():
     # construct the argument parser and parse the arguments
@@ -21,10 +23,13 @@ def main():
     args = vars(ap.parse_args())
 
     # load the digit classifier from disk
+    start_time = time.time()
     print("[INFO] loading digit classifier...")
     model = load_model(args["model"])
+    print("%s seconds" % (time.time() - start_time))
 
     # load the input image from disk and resize it
+    start_time = time.time()
     print("[INFO] processing image...")
     # try to load image
     try:
@@ -75,16 +80,15 @@ def main():
         cellLocations.append(row)
     # copy for later use
     start_board = board.tolist()
-    
-    # Construct 
-    print("[INFO] OCR'd Sudoku board: ")
+    print("%s seconds" % (time.time() - start_time))
 
     # Solve 
+    start_time = time.time()
     print("[INFO] solving Sudoku puzzle...")
     size = (3, 3)
     solution = list(solve_sudoku_X(size, board.tolist()))[0]
+    print("%s seconds" % (time.time() - start_time))
 
-    print(start_board)
     row_num = col_num = 0
     for (cellRow, boardRow) in zip(cellLocations, solution):
         for (box, digit) in zip(cellRow, boardRow):
@@ -101,10 +105,13 @@ def main():
         row_num += 1
         col_num = 0
     image_name = os.path.splitext(os.path.basename(args["image"]))[0]
-    cv2.imshow("Sudoku result", puzzleImage)
-    cv2.waitKey(0)
+    # cv2.imshow("Sudoku result", puzzleImage)
+    # cv2.waitKey(0)
     cv2.imwrite("output/%s.png" % image_name, puzzleImage)
+    print("Your solved sudoku has been saved in the output folder")
     
 ######## MAIN PROGRAM ########
 if __name__ == "__main__":
+    start_time = time.time()
     main()
+    print("TOTAL: %s seconds" % (time.time() - start_time))
