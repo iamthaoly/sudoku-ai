@@ -1,5 +1,10 @@
 from itertools import product
 
+
+def clone_X(X):
+    return {k: set(v) for k, v in X.items()}
+
+
 def convert_to_set(X, Y):
     X = {j: set() for j in X}
     for i, row in Y.items():
@@ -37,32 +42,48 @@ def deselect(X, Y, r, cols):
                 if k!= j:
                     X[k].add(i)
 
-def solve_sudoku_X(size, grid):
+def build_exact_cover(size=(3, 3)):
+    """Build the Sudoku exact-cover matrix. Call once; reuse across solves."""
     row, col = size
-    # calculate total squares in grid 
     N = row * col
-    # n = digits from 1 -> n
-    X = ([("rc", rc) for rc in product(range(N), range(N))] + 
-        [("rn", rn) for rn in product(range(N), range(1, N + 1))] +
-        [("cn", cn) for cn in product(range(N), range(1, N + 1))] +
-        [("bn", bn) for bn in product(range(N), range(1, N + 1))])
-    Y = dict()
+    X = ([("rc", rc) for rc in product(range(N), range(N))] +
+         [("rn", rn) for rn in product(range(N), range(1, N + 1))] +
+         [("cn", cn) for cn in product(range(N), range(1, N + 1))] +
+         [("bn", bn) for bn in product(range(N), range(1, N + 1))])
+    Y = {}
     for r, c, n in product(range(N), range(N), range(1, N + 1)):
-        b = (r // row) * row + (c // col) # box number
+        b = (r // row) * row + (c // col)
         Y[(r, c, n)] = [
             ("rc", (r, c)),
             ("rn", (r, n)),
             ("cn", (c, n)),
-            ("bn", (b, n))]
+            ("bn", (b, n)),
+        ]
+    return convert_to_set(X, Y)
 
-    X, Y = convert_to_set(X, Y)
+
+def solve_sudoku_X(size, grid, cover=None, clone=True):
+    """Solve `grid` in place via Algorithm X.
+
+    Pass a prebuilt `cover` from `build_exact_cover` so matrix construction
+    is not part of the timed solve. Set `clone=False` only when `cover`'s X
+    is already a fresh copy you are willing to mutate.
+    """
+    if cover is None:
+        X, Y = build_exact_cover(size)
+    else:
+        X, Y = cover
+        if clone:
+            X = clone_X(X)
+
     for i, row in enumerate(grid):
         for j, n in enumerate(row):
-            if n: select(X, Y, (i, j, n))
+            if n:
+                select(X, Y, (i, j, n))
 
     for solution in solve(X, Y, []):
         for (r, c, n) in solution:
-            grid[r][c] = n 
+            grid[r][c] = n
         yield grid
 
 if __name__ == "__main__":
