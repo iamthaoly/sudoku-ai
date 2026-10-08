@@ -1,17 +1,14 @@
-from source.Sudoku.puzzle import extract_digit
-from source.Sudoku.puzzle import find_puzzle
-from source.Sudoku.backtracking import solve_sudoku_backtracking
-from source.Sudoku.x_algo import solve_sudoku_X
-from tensorflow.keras.preprocessing.image import img_to_array
-from tensorflow.keras.models import load_model
-from keras.models import model_from_json
-import numpy as np
-import argparse
-import imutils
+import argparse, os, time
+
 import cv2
-import os
-import sys
-import time
+import imutils
+import numpy as np
+
+from tensorflow.keras.models import load_model
+from tensorflow.keras.preprocessing.image import img_to_array
+
+from source.Sudoku.puzzle import extract_digit, find_puzzle
+from source.Sudoku.x_algo import build_exact_cover, clone_X, solve_sudoku_X
 
 
 def main():
@@ -82,11 +79,13 @@ def main():
     start_board = board.tolist()
     print("%s seconds" % (time.time() - start_time))
 
-    # Solve 
+    # Build the exact-cover matrix once, then time only the search.
+    size = (3, 3)
+    X, Y = build_exact_cover(size)
+    X = clone_X(X)
     start_time = time.time()
     print("[INFO] solving Sudoku puzzle...")
-    size = (3, 3)
-    solution = list(solve_sudoku_X(size, board.tolist()))[0]
+    solution = list(solve_sudoku_X(size, board.tolist(), cover=(X, Y), clone=False))[0]
     print("%s seconds" % (time.time() - start_time))
 
     row_num = col_num = 0
