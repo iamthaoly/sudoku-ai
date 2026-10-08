@@ -157,4 +157,6 @@ sudoku-ai/
 
 
 ## 📄 License
+**MIT License**
 
+Copyright (c) 2026 Lex Tran
