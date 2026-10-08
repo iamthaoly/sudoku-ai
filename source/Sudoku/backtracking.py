@@ -10,7 +10,7 @@ def find_empty_location(arr, l):
     for row in range(9): 
         for col in range(9): 
             if(arr[row][col]== 0): 
-                l = [row, col]
+                l[0], l[1] = row, col
                 return True
     return False
 
